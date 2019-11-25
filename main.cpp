@@ -10,25 +10,11 @@ int main() {
 
   //cout << "Version " << myproject_VERSION_MAJOR << "." << myproject_VERSION_MINOR << endl;
 
-  RenderWindow App(VideoMode(800, 600), "myproject",Style::Titlebar|Style::Close);
-  Event Event; 
-  while (App.isOpen()) {
+  Game game;
+
+  while (game.running()) {
     
-    while (App.pollEvent(Event)) {
-      switch(Event.type) 
-      {
-          case Event::Closed:
-              App.close();
-              break;
-          case Event::KeyPressed: 
-              if(Event.key.code == Keyboard::Escape)
-                  App.close();
-              break;
-              
-      
-    }
-    App.clear(Color(255,255,255,255));
-    App.display();
-  }
+    game.update();
+    game.render();
 }
 }
