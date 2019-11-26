@@ -6,7 +6,10 @@
 #include <SFML/Network.hpp>
 #include <eigen3/Eigen/Core>
 #include <memory>
+#include <iostream>
 #include <type_traits>
+#include <vector>
+#include <ctime>
 #include <CGAL/Simple_cartesian.h>
 typedef CGAL::Simple_cartesian<double> Kernel;
 typedef Kernel::Point_2 Point_2;
@@ -23,12 +26,24 @@ private :
     unique_ptr<RenderWindow> renderwindow;
     VideoMode videomode;
     Event event;
+    RectangleShape enemy;
+    void initEnemies();
+    Vector2i mouseposwindow;
+    vector<RectangleShape> enemies;
+    
+    float enemiesspawntimer;
+    float enemiesspawntimerMax;
+    int maxEnemies;
+    int Points;
 public:
     Game();
     virtual ~Game();
-    
+    void updatemousepos();
     const bool running() const ;
     void pollevents();
     void update();
     void render();
+    void updateenemies();
+    void renderenemies();
+    void spawnenemies();
 };
