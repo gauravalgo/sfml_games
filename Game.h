@@ -29,6 +29,7 @@ private :
     RectangleShape enemy;
     void initEnemies();
     Vector2i mouseposwindow;
+    Vector2f mousepositionview;
     vector<RectangleShape> enemies;
     
     float enemiesspawntimer;

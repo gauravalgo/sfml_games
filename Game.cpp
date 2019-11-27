@@ -28,6 +28,7 @@ Game:: ~Game()
         mouseposwindow=Mouse::getPosition(*renderwindow);
         //std::cout<<"relative mouse position "<<Mouse::getPosition().x<<" "<<Mouse::getPosition().y<<endl;
         std::cout<<"window mouse position "<<Mouse::getPosition(*renderwindow).x<<" "<<Mouse::getPosition(*renderwindow).y<<endl;
+        mousepositionview = renderwindow->mapPixelToCoords(mouseposwindow); //impoertant concept mapping pixels to co-ordinates
         
     }
     void Game::render()
@@ -47,7 +48,7 @@ Game:: ~Game()
     {
         Points=0;
         
-        enemiesspawntimerMax=1000.f;
+        enemiesspawntimerMax=10.f;
         enemiesspawntimer=enemiesspawntimerMax;
         maxEnemies=5;
         
@@ -55,8 +56,8 @@ Game:: ~Game()
         void Game::spawnenemies()
         {
             
-            static_cast<float>(enemy.setPosition(rand()%static_cast<int>((renderwindow->getSize().x - enemy.getSize().x)))),
-            static_cast<float>(enemy.setPosition(rand()%static_cast<int>((renderwindow->getSize().y - enemy.getSize().y))));
+            enemy.setPosition(static_cast<float>(rand()%static_cast<int>((renderwindow->getSize().x - enemy.getSize().x))),
+            0.f);
             enemy.setFillColor(Color::Green);
             enemies.push_back(enemy);
         }
@@ -80,12 +81,32 @@ Game:: ~Game()
                     else
                     enemiesspawntimer+=1.f;
             }
+            int i=0;
             
             for(auto& e: enemies)
             {
-                e.move(0.f,5.f);
-                
+                bool deleted=false; 
+                e.move(0.f,1.f);
+               if(Mouse::isButtonPressed(Mouse::Left))
+               {
+                    if(e.getGlobalBounds().contains(mousepositionview))
+                    {
+                        deleted=true;
+                    }
+                }
+               if(e.getPosition().y>renderwindow->getSize().y)
+               {
+                   deleted=true;
+                }
+                if(deleted)
+                {
+                    enemies.erase(enemies.begin()+i);
+                    Points+=10;
+                }
+               i++;
             }
+            
+            
         }
 
     void Game::initEnemies()
@@ -94,8 +115,8 @@ Game:: ~Game()
         enemy.setSize(Vector2f(100.f,100.f));
         enemy.setScale(Vector2f(0.5f,0.5f));
         enemy.setFillColor(Color::Cyan);
-        enemy.setOutlineColor(Color::Green);
-        enemy.setOutlineThickness(1.f);
+      /*  enemy.setOutlineColor(Color::Green);
+        enemy.setOutlineThickness(1.f);*/
         
         
         
