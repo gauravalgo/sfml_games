@@ -6,6 +6,7 @@
 #include <CGAL/convex_hull_2.h>
 #include <array>
 #include <memory>
+#include <iterator>
 #include <iostream>
 typedef CGAL::Simple_cartesian<double> Kernel;
 //typedef Kernel::Point_2 Point_2;
