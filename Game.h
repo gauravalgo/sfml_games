@@ -10,11 +10,6 @@
 #include <type_traits>
 #include <vector>
 #include <ctime>
-#include <CGAL/Simple_cartesian.h>
-typedef CGAL::Simple_cartesian<double> Kernel;
-typedef Kernel::Point_2 Point_2;
-typedef Kernel::Segment_2 Segment_2;
-
 using namespace std;
 using namespace sf;
 class Game
