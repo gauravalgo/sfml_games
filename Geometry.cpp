@@ -9,6 +9,6 @@ void cgal_function()
     CGAL::convex_hull_2(po.begin(),po.end(),result.begin());
     for(int i=0;i<5;i++)
     {
-        cout<< "result" <<result[i]<<std::endl;
+         cout<< "result" <<result[i]<<std::endl;
     }
 }
